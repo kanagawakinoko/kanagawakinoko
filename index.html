@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神奈川キノコの会 ホームページ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --forest-green: #228B22;
+            --mushroom-brown: #8B4513;
+            --mushroom-tan: #D2B48C;
+            --light-tan: #F4E6D7;
+            --off-white: #F9F6F2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--off-white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+        }
+
+        .header {
+            background-color: var(--mushroom-brown);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            position: sticky;
+            top: 70px;
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .nav a:hover {
+            color: var(--forest-green);
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: kenburns 12s linear infinite; /* アニメーション時間を20秒から12秒に短縮 */
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes kenburns {
+            0% {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+            8% { /* フェードインの時間を短縮 */
+                opacity: 1;
+            }
+            92% { /* フェードアウトの開始を早める */
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--forest-green);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: #1a6b1a;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background-color: var(--mushroom-brown);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer a {
+            color: var(--light-tan);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--mushroom-brown);
+        }
+
+        .icon {
+            font-size: 2rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .event-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: scale(1.03);
+        }
+
+        .warning-card {
+            background-color: #ffd700;
+            color: #333;
+            margin-top: 2rem;
+            border-left: 5px solid #ff8c00;
+        }
+
+        form div {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                align-items: center;
+                position: static;
+            }
+
+            .nav a {
+                margin: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--forest-green);
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, background-color 0.3s;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #1a6b1a;
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">神奈川キノコの会 🍄</div>
+            <nav class="nav">
+                <a href="#home">ホーム</a>
+                <a href="#about">会について</a>
+                <a href="#events">年間計画</a>
+                <a href="#join">入会案内</a>
+                <a href="#contact">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-slides">
+            <!-- JavaScript will populate this -->
+        </div>
+        <div class="hero-content fade-in-up">
+            <h1>神奈川キノコの会 🍄</h1>
+            <p>謎多き生物「キノコ」に親しみ、その解明を通じて知を探求しよう</p>
+            <a href="#about" class="btn">詳しく見る</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">会について 🌿</h2>
+            <div class="grid">
+                <div class="card fade-in-up">
+                    <i class="fas fa-search icon"></i>
+                    <h3>私たちの活動</h3>
+                    <ul>
+                        <li>🔍 野外勉強会（キノコ観察会）</li>
+                        <li>📚 室内勉強会（キノコの同定や講義）</li>
+                        <li>🗺️ 平塚キノコ調査（地域のキノコ相調査）</li>
+                        <li>📰 会報の発行</li>
+                    </ul>
+                </div>
+                <div class="card fade-in-up">
+                    <i class="fas fa-bullseye icon"></i>
+                    <h3>会の紹介</h3>
+                    <p>神奈川キノコの会は1978年5月13日に発足した、キノコに興味を持つ方々が集まる同好会です。</p>
+                    <p>専門家からビギナーまで、キノコを愛する老若男女が集まっています。</p>
+                    <p>活動を通じて、神奈川県のキノコ相の知識を深め、その多様性と自然環境への理解を広げていきます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="section" style="background-color: var(--forest-green); color: white;">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">2024年度 年間計画 📅</h2>
+            <div class="grid">
+                <div class="card event-card fade-in-up">
+                    <h3>野外勉強会</h3>
+                    <ul>
+                        <li>6月23日 - 真鶴半島</li>
+                        <li>6月30日 - 県立津久井湖城山公園</li>
+                        <li>7月13日 - こども自然公園</li>
+                        <li>8月25日 - 鎌倉中央公園</li>
+                        <li>9月1日 - 富士山 太郎坊</li>
+                        <li>9月8日 - 八菅山いこいの森</li>
+                        <li>9月14日 - 泉の森公園</li>
+                        <li>9月22日 - 横浜市野島公園</li>
+                        <li>9月29日 - 舞岡公園</li>
+                        <li>10月5日 - 宿泊勉強会（山梨県野鳥の森公園周辺）</li>
+                        <li>10月20日 - 小田原いこいの森周辺</li>
+                    </ul>
+                </div>
+                <div class="card event-card fade-in-up">
+                    <h3>室内勉強会</h3>
+                    <ul>
+                        <li>12月8日 - 平塚市博物館</li>
+                        <li>1月19日 - 平塚市博物館</li>
+                    </ul>
+                    <h3>平塚キノコ調査</h3>
+                    <p>毎月第3木曜日に実施</p>
+                    <ul>
+                        <li>6月20日 - びわ青少年の家</li>
+                        <li>7月18日 - 霧降の滝</li>
+                        <li>8月15日 - 高麗山</li>
+                        <li>9月19日 - 万縄の森</li>
+                        <li>10月17日 - 霧降の滝</li>
+                        <li>11月21日 - 高麗山</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card warning-card fade-in-up">
+                <p><strong>⚠️ 野外勉強会 雨天中止の目安：</strong></p>
+                <p>前日21時の時点での気象庁の天気予報が現地当日午前6時～12時の降雨確率60％以上の場合に中止とします。</p>
+                <a href="http://www.jma.go.jp/jp/yoho/206.html" target="_blank" rel="noopener noreferrer" style="color: blue;">
+                    気象庁天気予報（関東）を確認する
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="section" style="background-color: var(--mushroom-tan);">
+        <div class="container">
+            <h2 class="section-title">入会案内 🌟</h2>
+<div class="card fade-in-up">
+                <p>神奈川キノコの会では、随時新会員を募集しています。キノコに興味のある方なら、どなたでも歓迎です。</p>
+                <h3>入会方法</h3>
+                <p>入会希望の方は、お問い合わせフォームよりご連絡ください。詳細な手続きについてご案内いたします。</p>
+                <h3>会費</h3>
+                <p>年会費：一般会員 3,000円、学生会員 1,500円</p>
+                <h3>特典</h3>
+                <ul>
+                    <li>会報「くさびら」の送付（年1回）</li>
+                    <li>野外勉強会・室内勉強会への参加（無料）</li>
+                    <li>「検証キノコ新図鑑」の割引購入（2割引）</li>
+                </ul>
+                <p><small><em>※ 非会員の方も、野外勉強会に臨時会員として参加できます（参加費：1人500円、家族参加の場合は1家族500円）。</em></small></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section" style="background-color: var(--mushroom-brown); color: white;">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">お問い合わせ 📬</h2>
+            <div class="card fade-in-up" style="color: #333;">
+                <p>神奈川キノコの会に関するお問い合わせは、以下のメールアドレスにお気軽にご連絡ください。</p>
+                <p>メールアドレス: <a id="email-link" href="#"></a></p>
+                <p>（窓口担当：中島淳志）</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 神奈川キノコの会 All Rights Reserved.</p>
+        <p>
+            <a href="http://www.hirahaku.jp/" target="_blank" rel="noopener noreferrer">平塚市博物館</a>
+        </p>
+    </footer>
+
+    <div id="scroll-to-top" class="scroll-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // パララックス効果
+        window.addEventListener('scroll', function() {
+            const parallax = document.querySelector('.hero');
+            let scrollPosition = window.pageYOffset;
+            parallax.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
+        });
+
+        // ヘッダーのスクロール時の背景色変更
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(139, 69, 19, 0.9)';
+            } else {
+                header.style.backgroundColor = 'var(--mushroom-brown)';
+            }
+        });
+
+        // スクロールトップボタン
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
+            }
+        });
+
+        scrollToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // フェードインアニメーション
+        const fadeInElements = document.querySelectorAll('.fade-in-up');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeInElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            fadeInObserver.observe(element);
+        });
+
+
+        // メールアドレス表示のためのコード
+        document.addEventListener('DOMContentLoaded', function() {
+            var username = 'mycoscouter';
+            var domain = 'gmail.com';
+            var emailAddress = username + '@' + domain;
+            var link = document.getElementById('email-link');
+            link.href = 'mailto:' + emailAddress;
+            link.textContent = emailAddress;
+        });
+
+        // Ken Burns効果のための新しいJavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSlides = document.querySelector('.hero-slides');
+            const images = ['mushroom1.jpg', 'mushroom2.jpg', 'mushroom3.jpg', 'mushroom4.jpg', 'mushroom5.jpg', 'mushroom6.jpg'];
+            let currentIndex = 0;
+
+            function createSlide(imageSrc, index) {
+                const slide = document.createElement('div');
+                slide.className = 'hero-slide';
+                slide.style.backgroundImage = `url('${imageSrc}')`;
+                slide.style.animationDelay = `${index * 5}s`;
+                heroSlides.appendChild(slide);
+            }
+            images.forEach((image, index) => {
+                createSlide(image, index);
+            });
+        });
+    </script>
+</body>
+</html>
