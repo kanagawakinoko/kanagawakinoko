@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,11 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         :root {
-            --forest-green: #228B22;
+            --forest-green: #2e8b57;  /* 明るい緑 */
             --mushroom-brown: #8B4513;
             --mushroom-tan: #D2B48C;
             --light-tan: #F4E6D7;
             --off-white: #F9F6F2;
+            --glass-bg: rgba(255, 255, 255, 0.9);  /* 不透明度を上げました */
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --text-color: #333;
+            --header-bg: rgba(46, 139, 87, 0.95);  /* 半透明を強調 */
+            --link-color: #1a5f7a;  /* 濃い青緑 */
+            --button-hover: #1a6b1a;
+            --warning-bg: #ffd700;
+            --warning-border: #ff8c00;
         }
         
         * {
@@ -24,7 +34,7 @@
         body {
             font-family: 'Noto Sans JP', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-color);
             background-color: var(--off-white);
         }
 
@@ -33,14 +43,17 @@
         }
 
         .header {
-            background-color: var(--mushroom-brown);
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
             color: white;
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .header-content {
@@ -54,21 +67,21 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
+            color: var(--light-tan);
         }
 
         .nav {
             display: flex;
             justify-content: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            position: sticky;
-            top: 70px;
-            z-index: 999;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         .nav a {
-            color: #333;
+            color: var(--text-color);
             text-decoration: none;
             margin: 0 1rem;
             transition: color 0.3s;
@@ -88,6 +101,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: url('mushroom1.jpg') center/cover no-repeat;
+        }
+
+        .hero-slides {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
         .hero-slide {
@@ -99,7 +122,8 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            animation: kenburns 12s linear infinite; /* アニメーション時間を20秒から12秒に短縮 */
+            /* kenburnsアニメーションを別途設定 */
+            animation: kenburns 5s linear infinite;
         }
 
         .hero-slide::before {
@@ -109,45 +133,33 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes kenburns {
-            0% {
-                opacity: 0;
-                transform: scale(1.2);
-            }
-            8% { /* フェードインの時間を短縮 */
-                opacity: 1;
-            }
-            92% { /* フェードアウトの開始を早める */
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-            }
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             padding: 3rem;
-            border-radius: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px var(--shadow-color);
             max-width: 800px;
             width: 90%;
+            color: var(--text-color);
         }
 
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             letter-spacing: 2px;
+            color: var(--forest-green);
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
+            color: var(--text-color);
         }
 
         .section {
@@ -159,23 +171,88 @@
             margin: 0 auto;
         }
 
+        .section-title {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+            width: 100%;  /* Ensure the parent container spans full width */
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100%;  /* Line spans full width */
+            height: 3px;
+            background: var(--forest-green);
+            display: block;
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        #join {
+            background-color: var(--mushroom-tan);
+            color: var(--text-color);
+        }
+
+        #contact {
+            background-color: var(--mushroom-brown);
+            color: white;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .card {
-            background-color: white;
-            border-radius: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px var(--shadow-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: var(--text-color);
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 24px var(--shadow-color);
+        }
+
+        #events {
+            background-color: var(--forest-green);
+            color: white;
+        }
+
+        .card.event-card h3, .card.event-card ul, .card.event-card p {
+            color: white; /* Ensure all text elements have improved contrast */
+        }
+
+        .card.event-card {
+            background: rgba(0, 0, 0, 0.1); /* Slightly darken the background for contrast */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Ensure a light border is visible */
+            color: white; /* Ensure text inside cards is white */
+        }
+
+        .card.warning-card {
+            background-color: var(--warning-bg);
+            color: var(--text-color);
+            margin-top: 2rem;
+            border-left: 5px solid var(--warning-border);
+            padding: 1.5rem;
+        }
+
+        .icon {
+            font-size: 2rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
         }
 
         .btn {
@@ -190,7 +267,7 @@
         }
 
         .btn:hover {
-            background-color: #1a6b1a;
+            background-color: var(--button-hover);
             transform: translateY(-2px);
         }
 
@@ -211,34 +288,9 @@
             color: white;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--mushroom-brown);
-        }
-
-        .icon {
-            font-size: 2rem;
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .event-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: scale(1.03);
-        }
-
-        .warning-card {
-            background-color: #ffd700;
-            color: #333;
-            margin-top: 2rem;
-            border-left: 5px solid #ff8c00;
+        .warning-card p a {
+            color: blue;
+            text-decoration: underline;
         }
 
         form div {
@@ -258,10 +310,20 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 0.5rem 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .nav {
                 flex-direction: column;
                 align-items: center;
-                position: static;
+                padding: 0.5rem;
+                margin-top: 0.5rem;
             }
 
             .nav a {
@@ -274,6 +336,10 @@
 
             .section {
                 padding: 4rem 1rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
             }
         }
 
@@ -291,6 +357,7 @@
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s, background-color 0.3s;
+            z-index: 1000;
         }
 
         .scroll-to-top.show {
@@ -298,7 +365,7 @@
         }
 
         .scroll-to-top:hover {
-            background-color: #1a6b1a;
+            background-color: var(--button-hover);
         }
 
         /* アニメーション */
@@ -317,13 +384,40 @@
             animation: fadeInUp 0.6s ease-out;
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* フェードアウト用のキーフレーム */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s forwards;
+        }
+
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
         #password-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--off-white);
+            background-color: rgba(249, 246, 242, 0.95); /* 少し透け感を持たせました */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -331,11 +425,12 @@
         }
 
         #password-box {
-            background-color: white;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px var(--shadow-color);
         }
 
         #password-input {
@@ -357,13 +452,55 @@
         }
 
         #password-submit:hover {
-            background-color: #1a6b1a;
+            background-color: var(--button-hover);
         }
 
         .hidden {
             display: none !important;
         }
 
+        /* 新規リンク集セクション */
+        .links-section {
+            padding: 2rem;
+            background-color: var(--off-white);
+        }
+
+        .links-section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--mushroom-brown);
+        }
+
+        .links-section .links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .links-section .links a {
+            color: var(--forest-green);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .links-section .links a:hover {
+            color: var(--button-hover);
+        }
+
+        @keyframes kenburns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            50% {
+                transform: scale(1.05) translate(-5px, -5px);
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -393,7 +530,7 @@
 
     <section id="home" class="hero">
         <div class="hero-slides">
-            <!-- JavaScript will populate this -->
+            <!-- JavaScriptがここにスライドを追加します -->
         </div>
         <div class="hero-content fade-in-up">
             <h1>神奈川キノコの会 🍄</h1>
@@ -475,10 +612,10 @@
         </div>
     </section>
 
-    <section id="join" class="section" style="background-color: var(--mushroom-tan);">
+    <section id="join" class="section">
         <div class="container">
             <h2 class="section-title">入会案内 🌟</h2>
-<div class="card fade-in-up">
+            <div class="card fade-in-up">
                 <p>神奈川キノコの会では、随時新会員を募集しています。キノコに興味のある方なら、どなたでも歓迎です。</p>
                 <h3>入会方法</h3>
                 <p>入会希望の方は、お問い合わせフォームよりご連絡ください。詳細な手続きについてご案内いたします。</p>
@@ -506,11 +643,17 @@
         </div>
     </section>
 
+    <!-- 新規リンク集セクション -->
+    <section class="links-section">
+        <h2>関連リンク</h2>
+        <div class="links">
+            <a href="https://ameblo.jp/kanagawakinoko/" target="_blank" rel="noopener noreferrer">神奈川キノコの会のブログ</a>
+            <a href="https://www.hirahaku.jp/" target="_blank" rel="noopener noreferrer">平塚市博物館 ホームページ</a>
+        </div>
+    </section>
+
     <footer class="footer">
         <p>&copy; 2024 神奈川キノコの会 All Rights Reserved.</p>
-        <p>
-            <a href="http://www.hirahaku.jp/" target="_blank" rel="noopener noreferrer">平塚市博物館</a>
-        </p>
     </footer>
 
     <div id="scroll-to-top" class="scroll-to-top">
@@ -532,16 +675,16 @@
         window.addEventListener('scroll', function() {
             const parallax = document.querySelector('.hero');
             let scrollPosition = window.pageYOffset;
-            parallax.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
+            parallax.style.backgroundPositionY = scrollPosition * 0.3 + 'px';
         });
 
         // ヘッダーのスクロール時の背景色変更
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (window.scrollY > 50) {
-                header.style.backgroundColor = 'rgba(139, 69, 19, 0.9)';
+                header.style.background = 'rgba(139, 69, 19, 0.95)';
             } else {
-                header.style.backgroundColor = 'var(--mushroom-brown)';
+                header.style.background = 'var(--header-bg)';
             }
         });
 
@@ -582,7 +725,6 @@
             fadeInObserver.observe(element);
         });
 
-
         // メールアドレス表示のためのコード
         document.addEventListener('DOMContentLoaded', function() {
             var username = 'mycoscouter';
@@ -593,24 +735,63 @@
             link.textContent = emailAddress;
         });
 
-        // Ken Burns効果のための新しいJavaScript
+        // Ken Burns効果のためのJavaScript
         document.addEventListener('DOMContentLoaded', function() {
             const heroSlides = document.querySelector('.hero-slides');
             const images = ['mushroom1.jpg', 'mushroom2.jpg', 'mushroom3.jpg', 'mushroom4.jpg', 'mushroom5.jpg', 'mushroom6.jpg'];
             let currentIndex = 0;
 
-            function createSlide(imageSrc, index) {
+            function createSlide(imageSrc) {
                 const slide = document.createElement('div');
                 slide.className = 'hero-slide';
                 slide.style.backgroundImage = `url('${imageSrc}')`;
-                slide.style.animationDelay = `${index * 5}s`;
-                heroSlides.appendChild(slide);
+                return slide;
             }
-            images.forEach((image, index) => {
-                createSlide(image, index);
-            });
+
+            // 最初のスライドを作成して追加
+            const firstSlide = createSlide(images[currentIndex]);
+            firstSlide.classList.add('fade-in');
+            heroSlides.appendChild(firstSlide);
+
+            function showNextSlide() {
+                const currentSlide = heroSlides.querySelector('.hero-slide:last-child');
+                currentSlide.classList.remove('fade-in');
+                currentSlide.classList.add('fade-out');
+
+                // 次のスライドのインデックスを計算
+                currentIndex = (currentIndex + 1) % images.length;
+                const nextSlide = createSlide(images[currentIndex]);
+                nextSlide.classList.add('fade-in');
+                heroSlides.appendChild(nextSlide);
+
+                // フェードアウトアニメーションが完了したら現在のスライドを削除
+                currentSlide.addEventListener('animationend', function() {
+                    currentSlide.remove();
+                }, { once: true });
+            }
+
+            // 5秒ごとに次のスライドを表示
+            setInterval(showNextSlide, 5000);
+        });
+
+        // パスワード保護スクリプト
+        document.getElementById('password-submit').addEventListener('click', function() {
+            const enteredPassword = document.getElementById('password-input').value;
+            const correctPassword = 'kusabira1978'; // パスワードを設定しました
+
+            if (enteredPassword === correctPassword) {
+                document.getElementById('password-overlay').classList.add('hidden');
+            } else {
+                alert('パスワードが間違っています。もう一度お試しください。');
+            }
+        });
+
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('password-submit').click();
+            }
         });
     </script>
-    <script src="password-protection.js"></script>
 </body>
 </html>
+
